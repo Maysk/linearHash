@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1428888364 source:c:\users\matheus\documents\cprojects\linearhash\src\armazenamento.cpp
+
+1428888107 source:c:\users\matheus\documents\cprojects\linearhash\src\hash.cpp
+
+1428888011 source:c:\users\matheus\documents\cprojects\linearhash\src\pagina.cpp
+
+1428953750 source:c:\users\matheus\documents\cprojects\linearhash\src\main.cpp
+	"../lib/imports.h"
+
+1428957116 c:\users\matheus\documents\cprojects\linearhash\lib\imports.h
+	<iostream>
+	"pagina.h"
+	"armazenamento.h"
+	"hash.h"
+
+1428957120 c:\users\matheus\documents\cprojects\linearhash\lib\armazenamento.h
+
+1428956789 c:\users\matheus\documents\cprojects\linearhash\lib\hash.h
+
+1428955096 c:\users\matheus\documents\cprojects\linearhash\lib\pagina.h
+
