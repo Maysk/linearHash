@@ -8,8 +8,10 @@
 1428953750 source:c:\users\matheus\documents\cprojects\linearhash\src\main.cpp
 	"../lib/imports.h"
 
-1428968964 c:\users\matheus\documents\cprojects\linearhash\lib\imports.h
+1428975292 c:\users\matheus\documents\cprojects\linearhash\lib\imports.h
 	<iostream>
+	<list>
+	<vector>
 	"pagina.h"
 	"bucket.h"
 	"listaDeBuckets.h"
@@ -18,13 +20,16 @@
 
 1428965757 c:\users\matheus\documents\cprojects\linearhash\lib\armazenamento.h
 
-1428968446 c:\users\matheus\documents\cprojects\linearhash\lib\hash.h
+1428976634 c:\users\matheus\documents\cprojects\linearhash\lib\hash.h
 
 1428965595 c:\users\matheus\documents\cprojects\linearhash\lib\pagina.h
 
-1428969015 c:\users\matheus\documents\cprojects\linearhash\lib\bucket.h
+1428976850 c:\users\matheus\documents\cprojects\linearhash\lib\bucket.h
 
-1428969014 c:\users\matheus\documents\cprojects\linearhash\lib\listadebuckets.h
+1428975261 c:\users\matheus\documents\cprojects\linearhash\lib\listadebuckets.h
 
-1428968824 source:c:\users\matheus\documents\cprojects\linearhash\src\bucket.cpp
+1428977080 source:c:\users\matheus\documents\cprojects\linearhash\src\bucket.cpp
+	"../lib/imports.h"
+
+1428969010 source:c:\users\matheus\documents\cprojects\linearhash\src\listadebuckets.cpp
 

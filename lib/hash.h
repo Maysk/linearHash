@@ -1,9 +1,10 @@
 class Hash{
     Armazenamento entradasDeDados;
-    ListaDeBuckets listaDeBuckets;
+    std::vector<Bucket> listaDeBuckets;
+    int quantidadeDeBucketsDoLevel;
+    int quantidadeDePaginasPorBucket;
     int level;
     int next;
-    int quantidadeDeBucketsDoLevel;
 
 public:
     Hash();
