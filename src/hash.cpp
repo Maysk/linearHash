@@ -6,7 +6,10 @@ Hash::~Hash(){}
 Hash Hash::loadHashInfo(){}
 void Hash::saveHashInfo(){}
 */
-void Hash::redistribuir(){}
+void Hash::redistribuir(){
+
+
+}
 
 
 int Hash::hashChave(int k){
