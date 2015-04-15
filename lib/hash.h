@@ -1,10 +1,12 @@
+
 class Hash{
-    Armazenamento entradasDeDados;
+    Armazenamento *entradasDeDados;
     std::vector<Bucket> listaDeBuckets;
     int quantidadeDeBucketsDoLevel;
     int quantidadeDePaginasPorBucket;
     int level;
     int next;
+    int quantidadeDeOverflow;
 
 public:
     Hash();
@@ -12,10 +14,10 @@ public:
 
     Hash loadHashInfo();
     void saveHashInfo();
-    void redistribui();
+    void redistribuir();
 
     int hashChave(int k);
-    int localizarChave(int k);
+    Identificador* localizarChave(int k);
     int adicionarPar(int k);
     int excluirPar(int k);
 

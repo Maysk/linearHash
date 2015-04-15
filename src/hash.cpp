@@ -2,10 +2,12 @@
 
 Hash::Hash(){}
 Hash::~Hash(){}
-
+/*
 Hash Hash::loadHashInfo(){}
 void Hash::saveHashInfo(){}
-void Hash::redistribui(){}
+*/
+void Hash::redistribuir(){}
+
 
 int Hash::hashChave(int k){
     int numeroDoBucket = k % ((2^level) * quantidadeDeBucketsDoLevel);
@@ -15,26 +17,58 @@ int Hash::hashChave(int k){
     return numeroDoBucket;
 }
 
-int Hash::localizarChave(int k){
+Identificador* Hash::localizarChave(int k){
     int numeroDoBucket = hashChave(k);
-    Bucket b = listaDeBuckets.at(k);
-    std::list<int> listaDePaginas = b.getNumeroDasPaginas();
-    std::list<int>::iterator i = listaDePaginas.begin();
-    bool isFound = false;
+    Bucket b = listaDeBuckets.at(numeroDoBucket);
 
-    while(listaDePaginas.end()!=i && !isFound){
-        //CarregarPagina da classe armazenamento
+    int numeroDoSlot;
+    Identificador* identificador;
+    Pagina paginaSendoPercorrida;
+
+    std::list<int>::iterator i =  b.getNumeroDasPaginas().begin();
+
+    while( b.getNumeroDasPaginas().end()!=i){
+        paginaSendoPercorrida = entradasDeDados->carregarPagina(*i);
+        numeroDoSlot = paginaSendoPercorrida.buscarChaveNaPagina(k);
+        if(numeroDoSlot>=0 ){
+                identificador = new Identificador(numeroDoSlot,*i,true);
+                return identificador;
+        }
+        i++;
     }
+
+    i = b.getPaginasDeOverflow().begin();
+    while( b.getPaginasDeOverflow().end()!=i){
+        paginaSendoPercorrida = entradasDeDados->carregarPaginaOverflow(*i);
+        numeroDoSlot = paginaSendoPercorrida.buscarChaveNaPagina(k);
+        if(numeroDoSlot>=0){
+            identificador = new Identificador(numeroDoSlot,*i,false);
+            return identificador;
+        }
+        i++;
+    }
+
+    return NULL;
 
 }
 
 int Hash::adicionarPar(int k){
     int numeroDoBucket = hashChave(k);
+    Bucket b = listaDeBuckets.at(numeroDoBucket);
 
+
+    if(quantidadeDeOverflow > 0){
+        redistribuir();
+    }
+    return 0;
 }
+
+/*
 int Hash::excluirPar(int k){
     int numeroDoBucket = hashChave(k);
-
+    Bucket b = listaDeBuckets.at(numeroDoBucket);
+    return 0;
 }
 
 
+*/

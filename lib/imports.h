@@ -1,10 +1,11 @@
 #include <iostream>
 #include <list>
 #include <vector>
+#include <stdio.h>
 #include "pagina.h"
-#include "bucket.h"
-#include "listaDeBuckets.h"
 #include "armazenamento.h"
+#include "bucket.h"
+#include "identificador.h"
 #include "hash.h"
 
 using namespace std;

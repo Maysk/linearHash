@@ -1,35 +1,43 @@
 # depslib dependency file v1.0
-1428888364 source:c:\users\matheus\documents\cprojects\linearhash\src\armazenamento.cpp
+1429059264 source:c:\users\matheus\documents\cprojects\linearhash\src\armazenamento.cpp
+	"../lib/imports.h"
 
-1428888107 source:c:\users\matheus\documents\cprojects\linearhash\src\hash.cpp
+1429058353 source:c:\users\matheus\documents\cprojects\linearhash\src\hash.cpp
+	"../lib/imports.h"
 
 1428888011 source:c:\users\matheus\documents\cprojects\linearhash\src\pagina.cpp
 
 1428953750 source:c:\users\matheus\documents\cprojects\linearhash\src\main.cpp
 	"../lib/imports.h"
 
-1428975292 c:\users\matheus\documents\cprojects\linearhash\lib\imports.h
+1429057753 c:\users\matheus\documents\cprojects\linearhash\lib\imports.h
 	<iostream>
 	<list>
 	<vector>
+	<stdio.h>
 	"pagina.h"
-	"bucket.h"
-	"listaDeBuckets.h"
 	"armazenamento.h"
+	"bucket.h"
+	"identificador.h"
 	"hash.h"
 
-1428965757 c:\users\matheus\documents\cprojects\linearhash\lib\armazenamento.h
+1429050880 c:\users\matheus\documents\cprojects\linearhash\lib\armazenamento.h
 
-1428976634 c:\users\matheus\documents\cprojects\linearhash\lib\hash.h
+1429060119 c:\users\matheus\documents\cprojects\linearhash\lib\hash.h
 
-1428965595 c:\users\matheus\documents\cprojects\linearhash\lib\pagina.h
+1429060230 c:\users\matheus\documents\cprojects\linearhash\lib\pagina.h
 
-1428976850 c:\users\matheus\documents\cprojects\linearhash\lib\bucket.h
+1429060878 c:\users\matheus\documents\cprojects\linearhash\lib\bucket.h
 
 1428975261 c:\users\matheus\documents\cprojects\linearhash\lib\listadebuckets.h
 
-1428977080 source:c:\users\matheus\documents\cprojects\linearhash\src\bucket.cpp
+1429058969 source:c:\users\matheus\documents\cprojects\linearhash\src\bucket.cpp
 	"../lib/imports.h"
 
 1428969010 source:c:\users\matheus\documents\cprojects\linearhash\src\listadebuckets.cpp
+
+1429057891 c:\users\matheus\documents\cprojects\linearhash\lib\identificador.h
+
+1429058751 source:c:\users\matheus\documents\cprojects\linearhash\src\identificador.cpp
+	"../lib/imports.h"
 

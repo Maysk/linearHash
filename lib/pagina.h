@@ -18,7 +18,8 @@ public:
     bool temPosicaoVazia();
 
     //Metodos mais ligados ao array de pares
-    void buscarChaveNaPagina(int chave);
+
+    int buscarChaveNaPagina(int chave);// retorna o slot onde está a chave caso ela exista; caso contrario retorna -1
     bool adicionarParNaPagina(int chave, int rid);
     void excluirChaveDdPagina(int chave);
 
