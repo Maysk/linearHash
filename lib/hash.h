@@ -11,7 +11,7 @@ class Hash{
     int quantidadeDeOverflow;
 
 public:
-    Hash();
+    Hash(int quantidadeDeBucketsInicial, int quantidadeDePaginasPorBucket);
     ~Hash();
 
     void adicionarNovoBucket();

@@ -1,6 +1,11 @@
 #include "../lib/imports.h"
 
-Hash::Hash(){
+Hash::Hash(int quantidadeDeBucketsInicial, int quantidadeDePaginasPorBucket){
+    this->quantidadeDeBucketsInicial = quantidadeDeBucketsInicial;
+    this->quantidadeDePaginasPorBucket = quantidadeDePaginasPorBucket;
+    this->level = 0;
+    this->next = 0;
+    this->quantidadeDeOverflow = 0;
 
 }
 Hash::~Hash(){}
@@ -23,14 +28,11 @@ Hash Hash::loadHashInfo(){
         fprintf(arquivo,"0\n");     //qtd de overflow
         fprintf(arquivo,"0\n");     //menorlevel
         fprintf(arquivo,"0\n");     //posicaoDoNext
-        fprintf(arquivo,"B0: f\n");
-        fprintf(arquivo,"Overflow: f\n");
-        fprintf(arquivo,"Bucket: 2 3\n");
-        fprintf(arquivo,"Overflow: f\n");
-        fprintf(arquivo,"Bucket: 4 5\n");
-        fprintf(arquivo,"Overflow: f\n");
-        fprintf(arquivo,"Bucket: 6 7\n");
-        fprintf(arquivo,"Overflow: f\n");
+        fprintf(arquivo,"B: f\n");
+        fprintf(arquivo,"B: f\n");
+        fprintf(arquivo,"B: f\n");
+        fprintf(arquivo,"B: f\n");
+
     }
     else{
         fscanf(arquivo, "%d", &(this->quantidadeDeBucketsInicial));
@@ -38,6 +40,8 @@ Hash Hash::loadHashInfo(){
         fscanf(arquivo, "%d", &(this->quantidadeDeOverflow));
         fscanf(arquivo, "%d", &(this->level));
         fscanf(arquivo, "%d", &(this->next));
+
+
 
     }
 }
