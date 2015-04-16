@@ -1,10 +1,9 @@
 class Bucket{
-    std::list<int> numeroDasPaginas;
     std::list<int> paginasDeOverflow;
 public:
-    void adicionarPaginaAoBucket();
-    void excluirPaginaDoBucket();
-    std::list<int> getNumeroDasPaginas();
+    Bucket();
+    void adicionarPaginaDeOverflowAoBucket(int idDaPagina);
+    void resetarListaDeOverflow();
     std::list<int> getPaginasDeOverflow();
 
 };

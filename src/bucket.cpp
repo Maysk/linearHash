@@ -1,9 +1,11 @@
 #include "../lib/imports.h"
 
-std::list<int> Bucket::getNumeroDasPaginas(){
-    return numeroDasPaginas;
-}
+Bucket::Bucket(){}
 
 std::list<int> Bucket::getPaginasDeOverflow(){
     return paginasDeOverflow;
+}
+
+void Bucket::resetarListaDeOverflow(){
+    paginasDeOverflow.clear();
 }
