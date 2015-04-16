@@ -1,16 +1,17 @@
 # depslib dependency file v1.0
-1429059264 source:c:\users\matheus\documents\cprojects\linearhash\src\armazenamento.cpp
+1429063378 source:c:\users\matheus\documents\cprojects\linearhash\src\armazenamento.cpp
 	"../lib/imports.h"
 
-1429058353 source:c:\users\matheus\documents\cprojects\linearhash\src\hash.cpp
+1429210873 source:c:\users\matheus\documents\cprojects\linearhash\src\hash.cpp
 	"../lib/imports.h"
 
-1428888011 source:c:\users\matheus\documents\cprojects\linearhash\src\pagina.cpp
+1429210309 source:c:\users\matheus\documents\cprojects\linearhash\src\pagina.cpp
+	"../lib/imports.h"
 
 1428953750 source:c:\users\matheus\documents\cprojects\linearhash\src\main.cpp
 	"../lib/imports.h"
 
-1429057753 c:\users\matheus\documents\cprojects\linearhash\lib\imports.h
+1429210391 c:\users\matheus\documents\cprojects\linearhash\lib\imports.h
 	<iostream>
 	<list>
 	<vector>
@@ -18,20 +19,19 @@
 	"pagina.h"
 	"armazenamento.h"
 	"bucket.h"
-	"identificador.h"
 	"hash.h"
 
-1429050880 c:\users\matheus\documents\cprojects\linearhash\lib\armazenamento.h
+1429210885 c:\users\matheus\documents\cprojects\linearhash\lib\armazenamento.h
 
-1429060119 c:\users\matheus\documents\cprojects\linearhash\lib\hash.h
+1429204050 c:\users\matheus\documents\cprojects\linearhash\lib\hash.h
 
-1429060230 c:\users\matheus\documents\cprojects\linearhash\lib\pagina.h
+1429210312 c:\users\matheus\documents\cprojects\linearhash\lib\pagina.h
 
-1429062316 c:\users\matheus\documents\cprojects\linearhash\lib\bucket.h
+1429116102 c:\users\matheus\documents\cprojects\linearhash\lib\bucket.h
 
 1428975261 c:\users\matheus\documents\cprojects\linearhash\lib\listadebuckets.h
 
-1429060863 source:c:\users\matheus\documents\cprojects\linearhash\src\bucket.cpp
+1429116098 source:c:\users\matheus\documents\cprojects\linearhash\src\bucket.cpp
 	"../lib/imports.h"
 
 1428969010 source:c:\users\matheus\documents\cprojects\linearhash\src\listadebuckets.cpp

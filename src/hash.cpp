@@ -9,7 +9,7 @@ Hash Hash::loadHashInfo(){
         arquivo = fopen(NOME_PADRAO,"w+");
         fprintf(arquivo, "4\n");    //qtd buckets
         fprintf(arquivo,"0\n");       //menorNivel
-        fprintf(arquivo,"0\n")         //posicaoDoNext
+        fprintf(arquivo,"0\n");         //posicaoDoNext
         fprintf(arquivo,"Bucket: 0 1");
         fprintf(arquivo,"Overflow: f");
         fprintf(arquivo,"Bucket: 2 3");
@@ -21,7 +21,6 @@ Hash Hash::loadHashInfo(){
     }
     else{
         fscanf(arquivo, "%d", &(this->quantidadeDeBucketsDoLevel) );
-        fscanf(arquivo, "%d", )
 
     }
 }
@@ -88,7 +87,7 @@ bool Hash::adicionarPar(int chave, int rid){
     while( b.getNumeroDasPaginas().end()!=i){
         paginaSendoPercorrida = entradasDeDados->carregarPagina(*i);
 
-        if(paginaSendoPercorrida.checarSeExitePar(chave, rid)){
+        if(paginaSendoPercorrida.checarSeExistePar(chave, rid)){
             return false;
         }
         i++;
@@ -98,7 +97,7 @@ bool Hash::adicionarPar(int chave, int rid){
     i = b.getPaginasDeOverflow().begin();
     while(b.getPaginasDeOverflow().end()!=i){
         paginaSendoPercorrida = entradasDeDados->carregarPaginaOverflow(*i);
-        if(paginaSendoPercorrida.checarSeExitePar(chave, rid)){
+        if(paginaSendoPercorrida.checarSeExistePar(chave, rid)){
             return false;
         }
         i++;
@@ -122,9 +121,9 @@ bool Hash::adicionarPar(int chave, int rid){
     }
 
     if(!paginaFoiAdicionada){
-        Pagina novaPagina = new Pagina();
-        novaPagina.adicionarParNaPagina(chave,rid);
-        entradasDeDados->adicionarPagina(novaPagina);
+        Pagina *novaPagina = new Pagina();
+        novaPagina->adicionarParNaPagina(chave,rid);
+        entradasDeDados->adicionarPagina(*novaPagina);
         paginaFoiAdicionada = true;
     }
 
@@ -145,7 +144,7 @@ bool Hash::excluirPar(int chave){
     //Checa se o par existe nas paginas "normais"
     while( b.getNumeroDasPaginas().end()!=i){
         paginaSendoPercorrida = entradasDeDados->carregarPagina(*i);
-        paginaSendoPercorrida.excluirChaveDdPagina(chave);
+        paginaSendoPercorrida.excluirChaveDaPagina(chave);
         i++;
     }
 
@@ -153,7 +152,7 @@ bool Hash::excluirPar(int chave){
     i = b.getPaginasDeOverflow().begin();
     while(b.getPaginasDeOverflow().end()!=i){
         paginaSendoPercorrida = entradasDeDados->carregarPaginaOverflow(*i);
-        paginaSendoPercorrida.excluirChaveDdPagina(chave);
+        paginaSendoPercorrida.excluirChaveDaPagina(chave);
         i++;
     }
 

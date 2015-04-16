@@ -5,7 +5,6 @@
 #include "pagina.h"
 #include "armazenamento.h"
 #include "bucket.h"
-#include "identificador.h"
 #include "hash.h"
 
 using namespace std;

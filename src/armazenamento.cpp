@@ -126,7 +126,7 @@ Pagina Armazenamento::carregarPagina(int pagId){
 
 }
 
-Pagina carregarPaginaOverflow(int pagID){
+Pagina Armazenamento::carregarPaginaOverflow(int pagID){
 
 
 }
