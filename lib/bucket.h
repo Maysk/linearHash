@@ -6,4 +6,5 @@ public:
     void excluirPaginaDoBucket();
     std::list<int> getNumeroDasPaginas();
     std::list<int> getPaginasDeOverflow();
+
 };
