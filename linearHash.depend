@@ -2,7 +2,7 @@
 1429210904 source:c:\users\matheus\documents\cprojects\linearhash\src\armazenamento.cpp
 	"../lib/imports.h"
 
-1429212444 source:c:\users\matheus\documents\cprojects\linearhash\src\hash.cpp
+1429224163 source:c:\users\matheus\documents\cprojects\linearhash\src\hash.cpp
 	"../lib/imports.h"
 
 1429210309 source:c:\users\matheus\documents\cprojects\linearhash\src\pagina.cpp
@@ -27,11 +27,11 @@
 
 1429210312 c:\users\matheus\documents\cprojects\linearhash\lib\pagina.h
 
-1429217610 c:\users\matheus\documents\cprojects\linearhash\lib\bucket.h
+1429223719 c:\users\matheus\documents\cprojects\linearhash\lib\bucket.h
 
 1428975261 c:\users\matheus\documents\cprojects\linearhash\lib\listadebuckets.h
 
-1429217724 source:c:\users\matheus\documents\cprojects\linearhash\src\bucket.cpp
+1429224256 source:c:\users\matheus\documents\cprojects\linearhash\src\bucket.cpp
 	"../lib/imports.h"
 
 1428969010 source:c:\users\matheus\documents\cprojects\linearhash\src\listadebuckets.cpp

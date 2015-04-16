@@ -3,7 +3,7 @@ class Bucket{
 public:
     Bucket();
     void adicionarPaginaDeOverflowAoBucket(int idDaPagina);
-    void resetarListaDeOverflow();
+
     std::list<int> getPaginasDeOverflow();
 
 };

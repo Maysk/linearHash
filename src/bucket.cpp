@@ -6,6 +6,6 @@ std::list<int> Bucket::getPaginasDeOverflow(){
     return paginasDeOverflow;
 }
 
-void Bucket::resetarListaDeOverflow(){
-    paginasDeOverflow.clear();
+void Bucket::adicionarPaginaDeOverflowAoBucket(int idDaPagina){
+    paginasDeOverflow.push_back(idDaPagina);
 }
