@@ -1,9 +1,16 @@
+#include <stdio.h>
 using namespace std;
+
+#define NOME_ARQUIVO_ENTRADAS_DE_DADOS "entradasDeDados.luke"
+#define NOME_ARQUIVO_OVERFLOW "overflow.luke"
+
+
 class Armazenamento{
-	int numeroDePaginasDados; //Interessante para ter algum controle sobre a qtd durante a execuo
+	int numeroDePaginasDados; //Interessante para ter algum controle sobre a qtd durante a execucao
 	int numeroDePaginasOverflow;
 	FILE* entradaDeDados;
 	FILE* overflow;
+
 public:
 	Armazenamento(string entradaDeDados, string overflow); //Contrutor que recebe como parametro o nome do arquivo de entrada de dados e o nome do arquivo de overflow
 	~Armazenamento();

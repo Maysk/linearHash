@@ -1,11 +1,19 @@
 #include "../lib/imports.h"
 
 Hash::Hash(int quantidadeDeBucketsInicial, int quantidadeDePaginasPorBucket){
+    Pagina *vazia = new Pagina();
+
     this->quantidadeDeBucketsInicial = quantidadeDeBucketsInicial;
     this->quantidadeDePaginasPorBucket = quantidadeDePaginasPorBucket;
     this->level = 0;
     this->next = 0;
     this->quantidadeDeOverflow = 0;
+    this->entradasDeDados = new Armazenamento("entradaDeDados","overflow");
+    for(int i = 0; i<4; i++){
+            this->listaDeBuckets.push_back(*(new Bucket));
+            this->entradasDeDados->adicionarPagina(*vazia);
+            this->entradasDeDados->adicionarPagina(*vazia);
+    }
 
 }
 Hash::~Hash(){}
@@ -63,6 +71,7 @@ void Hash::redistribuir(){
     int paginaDeOverflow;
     int numeroDePaginasJaAdicionadas;
 
+
     this->quantidadeDeOverflow =- listaDeBuckets.at(next).getPaginasDeOverflow().size();
     this->adicionarNovoBucket();
 
@@ -96,10 +105,12 @@ void Hash::redistribuir(){
          }
 
     }
+    std::list<int> listaDasPaginasDeOverflow = bucketDividido->getPaginasDeOverflow();
+    bucketDividido->resetarPaginaDeOverflow();
 
-    while(!(bucketDividido->getPaginasDeOverflow().empty())){
-        paginaDeOverflow = bucketDividido->getPaginasDeOverflow().back();
-        bucketDividido->getPaginasDeOverflow().pop_back();
+    while(!(listaDasPaginasDeOverflow.empty())){
+        paginaDeOverflow = listaDasPaginasDeOverflow.back();
+        listaDasPaginasDeOverflow.pop_back();
         paginaSendoPercorrida = entradasDeDados->carregarPaginaOverflow(paginaDeOverflow);
         entradasDeDados->exluirPagina(paginaDeOverflow);
         for(int i=0; i<10;i++){
@@ -164,9 +175,11 @@ void Hash::redistribuir(){
 
 
 int Hash::hashChave(int k){
-    int numeroDoBucket = k % ((2^level) * quantidadeDeBucketsInicial);
+    int divisor = pow(2,level) * quantidadeDeBucketsInicial;
+    int numeroDoBucket = k % divisor;
     if (numeroDoBucket < next) {
-        numeroDoBucket = k%((2^(level+1)) * quantidadeDeBucketsInicial);
+        divisor = pow(2, level+1) * quantidadeDeBucketsInicial;
+        numeroDoBucket = k % divisor;
     }
     return numeroDoBucket;
 }
@@ -179,6 +192,7 @@ int Hash::localizarChave(int chave){
 
 
     Pagina paginaSendoPercorrida;
+    std::list<int> listaDasPaginasDeOverflow = b.getPaginasDeOverflow();
     std::list<int>::iterator i;
 
     k = numeroDoBucket*quantidadeDePaginasPorBucket;
@@ -190,8 +204,8 @@ int Hash::localizarChave(int chave){
         j++;
     }
 
-    i = b.getPaginasDeOverflow().begin();
-    while( b.getPaginasDeOverflow().end()!=i  && ridDaChave == -1){
+    i = listaDasPaginasDeOverflow.begin();
+    while( listaDasPaginasDeOverflow.end()!=i  && ridDaChave == -1){
         paginaSendoPercorrida = entradasDeDados->carregarPaginaOverflow(*i);
         ridDaChave = paginaSendoPercorrida.buscarRidDaChaveNaPagina(chave);
         if(ridDaChave>=0){
@@ -213,9 +227,10 @@ bool Hash::adicionarPar(int chave, int rid){
     int numeroDoBucket = hashChave(chave);
     Bucket b = listaDeBuckets.at(numeroDoBucket);
     bool paginaFoiAdicionada = false;
-    int k,j;
+    int k, j;
 
     Pagina paginaSendoPercorrida;
+    std::list<int> listaDasPaginasDeOverflow = b.getPaginasDeOverflow();
     std::list<int>::iterator i;
 
     //Checa se o par existe nas paginas "normais"
@@ -231,8 +246,8 @@ bool Hash::adicionarPar(int chave, int rid){
     }
 
     //Checa se o par existe nas paginas overflow
-    i = b.getPaginasDeOverflow().begin();
-    while(b.getPaginasDeOverflow().end()!=i){
+    i = listaDasPaginasDeOverflow.begin();
+    while(i != listaDasPaginasDeOverflow.end()){
         paginaSendoPercorrida = entradasDeDados->carregarPaginaOverflow(*i);
         if(paginaSendoPercorrida.checarSeExistePar(chave, rid)){
             return false;
@@ -251,8 +266,8 @@ bool Hash::adicionarPar(int chave, int rid){
     }
 
     //Tenta adicionar o par nas paginas overflow
-    i = b.getPaginasDeOverflow().begin();
-     while(b.getPaginasDeOverflow().end()!=i && !paginaFoiAdicionada){
+    i = listaDasPaginasDeOverflow.begin();
+     while(listaDasPaginasDeOverflow.end()!=i && !paginaFoiAdicionada){
         paginaSendoPercorrida = entradasDeDados->carregarPaginaOverflow(*i);
         paginaFoiAdicionada = paginaSendoPercorrida.adicionarParNaPagina(chave,rid);
         i++;
@@ -261,7 +276,7 @@ bool Hash::adicionarPar(int chave, int rid){
     if(!paginaFoiAdicionada){
         Pagina *novaPagina = new Pagina();
         novaPagina->adicionarParNaPagina(chave,rid);
-        entradasDeDados->adicionarPagina(*novaPagina);
+        b.adicionarPaginaDeOverflowAoBucket(entradasDeDados->adicionarPagina(*novaPagina));
         paginaFoiAdicionada = true;
         (this->quantidadeDeOverflow)++;
     }
@@ -286,6 +301,7 @@ bool Hash::excluirPar(int chave){
     int k, j;
 
     Pagina paginaSendoPercorrida;
+    std::list<int> listaDasPaginasDeOverflow = b.getPaginasDeOverflow();
     std::list<int>::iterator i;
 
     k = numeroDoBucket*quantidadeDePaginasPorBucket;
@@ -299,8 +315,8 @@ bool Hash::excluirPar(int chave){
     }
 
     //Checa se o par existe nas paginas overflow
-    i = b.getPaginasDeOverflow().begin();
-    while(b.getPaginasDeOverflow().end()!=i && !exclusaoFeita){
+    i = listaDasPaginasDeOverflow.begin();
+    while(listaDasPaginasDeOverflow.end()!=i && !exclusaoFeita){
         paginaSendoPercorrida = entradasDeDados->carregarPaginaOverflow(*i);
         paginaSendoPercorrida.excluirChaveDaPagina(chave);
         i++;

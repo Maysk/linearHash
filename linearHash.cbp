@@ -34,13 +34,11 @@
 		<Unit filename="lib/armazenamento.h" />
 		<Unit filename="lib/bucket.h" />
 		<Unit filename="lib/hash.h" />
-		<Unit filename="lib/identificador.h" />
 		<Unit filename="lib/imports.h" />
 		<Unit filename="lib/pagina.h" />
 		<Unit filename="src/armazenamento.cpp" />
 		<Unit filename="src/bucket.cpp" />
 		<Unit filename="src/hash.cpp" />
-		<Unit filename="src/identificador.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/pagina.cpp" />
 		<Extensions>

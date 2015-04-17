@@ -164,7 +164,7 @@ void Pagina::show(){
             }
             else{
                 cout<<"A posicao "<<i<<" esta vazia."<<endl;
-                   cout<<"A posicao "<<i<<" contem o par <"<<this->arrayDosPares[i].chave<<","<<this->arrayDosPares[i].rid<<">."<<endl;
+                 //  cout<<"A posicao "<<i<<" contem o par <"<<this->arrayDosPares[i].chave<<","<<this->arrayDosPares[i].rid<<">."<<endl;
 
             }
     }
