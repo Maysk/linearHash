@@ -279,6 +279,29 @@ void Armazenamento::salvarPagina(Pagina p, int pagId){
 
 }
 
+void Armazenamento::salvarPaginaOverflow(Pagina p, int pagId){
 
+    rewind(this->overflow);
+
+    fseek(this->overflow,4,SEEK_SET);
+
+    fseek(this->overflow,(128*pagId),SEEK_CUR);
+
+    fseek(this->overflow,4,SEEK_CUR);
+
+    for (int i = 0; i < ARRAY_DE_CONTROLE; i++){
+
+        fwrite(&(p.arrayDeControle[i]),sizeof(int),1,this->overflow);
+
+    }
+
+    for (int i = 0; i < ARRAY_DE_PARES; i++){
+
+        fwrite(&(p.arrayDosPares[i].chave),sizeof(int),1,this->entradaDeDados);
+        fwrite(&(p.arrayDosPares[i].chave),sizeof(int),1,this->entradaDeDados);
+
+    }
+
+}
 
 

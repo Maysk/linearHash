@@ -11,12 +11,13 @@ class Hash{
     int quantidadeDeOverflow;
 
 public:
-    Hash(int quantidadeDeBucketsInicial, int quantidadeDePaginasPorBucket);
+    Hash();
+    //Hash(int quantidadeDeBucketsInicial, int quantidadeDePaginasPorBucket);
     ~Hash();
 
     void adicionarNovoBucket();
 
-    Hash loadHashInfo();
+    void loadHashInfo();
     void saveHashInfo();
     void redistribuir();
 

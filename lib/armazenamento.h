@@ -20,5 +20,6 @@ public:
     Pagina carregarPagina(int pagId); //Pegar uma pagina do arquivo de dados e coloca na memoria
 	Pagina carregarPaginaOverflow(int pagID); //Pegar uma pagina do arquivo de overflow e coloca na memoria
     void salvarPagina(Pagina p, int pagID); //Salva alteracoes feitas em uma pagina, a entrada e o id da pagina e a pagina com alteracoes
+    void salvarPaginaOverflow(Pagina p, int pagID);
 
 };
