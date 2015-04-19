@@ -1,20 +1,20 @@
 #include "../lib/imports.h"
 int  main(){
-/*
+
     remove(NOME_ARQUIVO_ENTRADAS_DE_DADOS);
     remove(NOME_ARQUIVO_OVERFLOW);
     remove(NOME_PADRAO);
-*/
+
     Hash *obj = new Hash();
     obj->loadHashInfo();
-/*
-    for(int i=0; i<100; i++ ){
+
+    for(int i=0; i<161; i++ ){
         obj->adicionarPar(i,i);
     }
-    obj->saveHashInfo();*/
-    obj->excluirPar(82);
-    obj->adicionarPar(83,82);
+
+    //obj->excluirPar(82);
     obj->imprimeInformacoes();
+    obj->saveHashInfo();
     //cout<<obj->quantidadeDeBucketsInicial<<"\n";     //Quantidade inicial de buckets no level
     //cout<<obj->quantidadeDePaginasPorBucket<<"\n";
     //cout<<obj->level<<"\n";

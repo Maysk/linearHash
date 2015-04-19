@@ -123,12 +123,12 @@ bool Pagina::excluirChaveDaPagina(int chave){
 
     int posicaoChave = this->buscarChaveNaPagina(chave);
     if (posicaoChave == -1){
-        cout<<"Chave "<<chave<<" nao existe na pagina."<<endl;
+        //cout<<"Chave "<<chave<<" nao existe na pagina."<<endl;
         return false;
     }
     else{
             this->setVazio(posicaoChave);
-            cout<<"Chave "<<chave<<" excluida com sucesso da pagina."<<endl;
+            //cout<<"Chave "<<chave<<" excluida com sucesso da pagina."<<endl;
             return true;
     }
 

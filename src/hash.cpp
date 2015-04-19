@@ -39,6 +39,7 @@ void Hash::imprimeInformacoes(){
             iterador++;
             cout<<"\n";
         }
+        cout<<" \n ---------------------------------------------------------------------------- \n";
     }
 }
 
@@ -63,9 +64,10 @@ void Hash::loadHashInfo(){
         arquivo = fopen(NOME_PADRAO,"w");
         fprintf(arquivo, "4\n");    //qtd buckets
         fprintf(arquivo, "2\n");    //qtd pagina por bucket
-        fprintf(arquivo,"0\n");     //qtd de overflow
-        fprintf(arquivo,"0\n");     //menorlevel
-        fprintf(arquivo,"0\n");     //posicaoDoNext
+        fprintf(arquivo, "0\n");     //qtd de overflow
+        fprintf(arquivo, "0\n");     //menorlevel
+        fprintf(arquivo, "0\n");     //posicaoDoNext
+        fprintf(arquivo, "4\n");    //quantidade de Buckets atual
         fprintf(arquivo,"B: f\n");
         fprintf(arquivo,"B: f\n");
         fprintf(arquivo,"B: f\n");
@@ -179,9 +181,11 @@ void Hash::redistribuir(){
     std::list<Pagina>::iterator iterador;
     int paginaDeOverflow;
     int numeroDePaginasJaAdicionadas;
+    int qtd;
 
-
-    this->quantidadeDeOverflow =- listaDeBuckets.at(next).getPaginasDeOverflow().size();
+    qtd=listaDeBuckets.at(next).getPaginasDeOverflow().size();
+    this->quantidadeDeOverflow = this->quantidadeDeOverflow - listaDeBuckets.at(next).getPaginasDeOverflow().size();
+    qtd=this->quantidadeDeOverflow;
     this->adicionarNovoBucket();
 
     vazia= new Pagina();
@@ -349,7 +353,7 @@ bool Hash::adicionarPar(int chave, int rid){
     int numeroDoBucket = hashChave(chave);
     Bucket b = listaDeBuckets.at(numeroDoBucket);
     bool paginaFoiAdicionada = false;
-    int k, j;
+    int k, j, qtd;
 
     Pagina paginaSendoPercorrida;
     std::list<int> listaDasPaginasDeOverflow = b.getPaginasDeOverflow();
@@ -411,13 +415,14 @@ bool Hash::adicionarPar(int chave, int rid){
         listaDeBuckets.at(numeroDoBucket).adicionarPaginaDeOverflowAoBucket(a);
         paginaFoiAdicionada = true;
         (this->quantidadeDeOverflow)++;
+        qtd = this->quantidadeDeOverflow;
 
     }
 
-    if(quantidadeDeOverflow > 0){
+    if(this->quantidadeDeOverflow > 0){
         redistribuir();
         (this->next)++;
-        if (this->next > ((2^level) * quantidadeDeBucketsInicial)){
+        if (this->next > (pow(2,level) * quantidadeDeBucketsInicial)-1){
             this->next = 0;
             (this->level)++;
         }
