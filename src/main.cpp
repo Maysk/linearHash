@@ -18,7 +18,8 @@ int  main(){
     //cout<<obj->quantidadeDeOverflow<<"\n";
     //cout<<obj->listaDeBuckets.size()<<"\n";
 
-    for(int i= 0;i<160;i++){
+    for(int i= 0;i<81;i++){
+        int qtd = obj->quantidadeDeOverflow;
         obj->adicionarPar(i,i);
     }
 

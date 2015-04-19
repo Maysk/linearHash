@@ -363,7 +363,7 @@ bool Hash::adicionarPar(int chave, int rid){
         paginaSendoPercorrida = entradasDeDados->carregarPaginaOverflow(*i);
         paginaFoiAdicionada = paginaSendoPercorrida.adicionarParNaPagina(chave,rid);
         if(paginaFoiAdicionada){
-                entradasDeDados->salvarPaginaOverflow(paginaSendoPercorrida,k);
+                entradasDeDados->salvarPaginaOverflow(paginaSendoPercorrida, *i);
         }
         i++;
     }
