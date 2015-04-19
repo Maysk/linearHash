@@ -1,17 +1,17 @@
 #include "../lib/imports.h"
 int  main(){
-
+/*
     remove(NOME_ARQUIVO_ENTRADAS_DE_DADOS);
     remove(NOME_ARQUIVO_OVERFLOW);
     remove(NOME_PADRAO);
-
+*/
     Hash *obj = new Hash();
     obj->loadHashInfo();
-
+/*
     for(int i=0; i<100; i++ ){
         obj->adicionarPar(i,i);
     }
-    obj->saveHashInfo();
+    obj->saveHashInfo();*/
     obj->imprimeInformacoes();
     //cout<<obj->quantidadeDeBucketsInicial<<"\n";     //Quantidade inicial de buckets no level
     //cout<<obj->quantidadeDePaginasPorBucket<<"\n";

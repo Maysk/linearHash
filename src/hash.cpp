@@ -99,11 +99,11 @@ void Hash::loadHashInfo(){
 
 
         for (int i = 0; i < numeroDeBuckets ; i ++  ){
-            fseek(arquivo,3,SEEK_CUR); //pular o "B: "
+            fseek(arquivo,5,SEEK_CUR); //pular o "B: "
             pagId = -1;
             a = getc(arquivo);
 
-            this->listaDeBuckets.push_back(*(new Bucket));
+            this->adicionarNovoBucket();
             while(a != 'f'){
                 fseek(arquivo,-1,SEEK_CUR);
                 fscanf(arquivo,"%d ",&pagId);
