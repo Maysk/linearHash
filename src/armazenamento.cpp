@@ -297,8 +297,8 @@ void Armazenamento::salvarPaginaOverflow(Pagina p, int pagId){
 
     for (int i = 0; i < ARRAY_DE_PARES; i++){
 
-        fwrite(&(p.arrayDosPares[i].chave),sizeof(int),1,this->entradaDeDados);
-        fwrite(&(p.arrayDosPares[i].chave),sizeof(int),1,this->entradaDeDados);
+        fwrite(&(p.arrayDosPares[i].chave),sizeof(int),1,this->overflow);
+        fwrite(&(p.arrayDosPares[i].chave),sizeof(int),1,this->overflow);
 
     }
 

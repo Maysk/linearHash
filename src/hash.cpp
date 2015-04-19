@@ -187,7 +187,8 @@ void Hash::redistribuir(){
 
     std::list<int> listaDasPaginasDeOverflow = listaDeBuckets.at(next).getPaginasDeOverflow();
     listaDeBuckets.at(next).resetarPaginaDeOverflow();
-    //cout<<"Ta vazio: "<<listaDasPaginasDeOverflow.empty();
+
+
 
     while(!(listaDasPaginasDeOverflow.empty())){
         paginaDeOverflow = listaDasPaginasDeOverflow.back();
@@ -200,7 +201,6 @@ void Hash::redistribuir(){
             par = (paginaSendoPercorrida.arrayDosPares)[i];
             divisor = pow(2,(level+1)) * quantidadeDeBucketsInicial;
 
-            //cout<<"Controle: "<< controle<<endl;
             if(controle){
                 if(par.chave % divisor == next){
                     paginaParaOBucketA->adicionarParNaPagina(par.chave, par.rid);
@@ -224,17 +224,15 @@ void Hash::redistribuir(){
     if(!paginaParaOBucketA->isPosicaoVazia(0)){bucketA.push_back(*paginaParaOBucketA);}
     if(!paginaParaOBucketB->isPosicaoVazia(0)){bucketB.push_back(*paginaParaOBucketB);}
 
-    //bucketA.back().show();
 
     if(bucketA.size()<1){bucketA.push_back(*vazia);}
     if(bucketA.size()<2){bucketA.push_back(*vazia);}
-    if(bucketB.size()<1){bucketA.push_back(*vazia);}
-    if(bucketB.size()<2){bucketA.push_back(*vazia);}
+    if(bucketB.size()<1){bucketB.push_back(*vazia);}
+    if(bucketB.size()<2){bucketB.push_back(*vazia);}
 
     numeroDePaginasJaAdicionadas = 0;
     iterador = bucketA.begin();
     while(iterador != bucketA.end()){
-            //(*iterador).show();
 
             if(numeroDePaginasJaAdicionadas<quantidadeDePaginasPorBucket){
                 entradasDeDados->salvarPagina(*iterador, quantidadeDePaginasPorBucket*next + numeroDePaginasJaAdicionadas);
@@ -260,7 +258,6 @@ void Hash::redistribuir(){
             }
             iterador++;
     }
-
 
 }
 
