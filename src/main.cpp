@@ -12,6 +12,8 @@ int  main(){
         obj->adicionarPar(i,i);
     }
     obj->saveHashInfo();*/
+    obj->excluirPar(82);
+    obj->adicionarPar(83,82);
     obj->imprimeInformacoes();
     //cout<<obj->quantidadeDeBucketsInicial<<"\n";     //Quantidade inicial de buckets no level
     //cout<<obj->quantidadeDePaginasPorBucket<<"\n";

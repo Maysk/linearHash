@@ -444,7 +444,8 @@ bool Hash::excluirPar(int chave){
         paginaSendoPercorrida = entradasDeDados->carregarPagina(k);
         exclusaoFeita = paginaSendoPercorrida.excluirChaveDaPagina(chave);
         if(exclusaoFeita){
-                entradasDeDados->salvarPagina(paginaSendoPercorrida,k);}
+                entradasDeDados->salvarPagina(paginaSendoPercorrida,k);
+        }
         k++;
         j++;
     }
@@ -453,9 +454,10 @@ bool Hash::excluirPar(int chave){
     i = listaDasPaginasDeOverflow.begin();
     while(listaDasPaginasDeOverflow.end()!=i && !exclusaoFeita){
         paginaSendoPercorrida = entradasDeDados->carregarPaginaOverflow(*i);
-        paginaSendoPercorrida.excluirChaveDaPagina(chave);
+        exclusaoFeita = paginaSendoPercorrida.excluirChaveDaPagina(chave);
         if(exclusaoFeita){
-                entradasDeDados->salvarPaginaOverflow(paginaSendoPercorrida,k);}
+                entradasDeDados->salvarPaginaOverflow(paginaSendoPercorrida,(*i));
+        }
         i++;
     }
 
