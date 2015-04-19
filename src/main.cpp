@@ -8,30 +8,35 @@ int  main(){
     Hash *obj = new Hash();
     obj->loadHashInfo();
 
-    //for(int i=0; i<100; i++ ){
-    //    obj->adicionarPar(i,i);
-    //}
+    for(int i=0; i<100; i++ ){
+        obj->adicionarPar(i,i);
+    }
+    obj->saveHashInfo();
+    obj->imprimeInformacoes();
     //cout<<obj->quantidadeDeBucketsInicial<<"\n";     //Quantidade inicial de buckets no level
     //cout<<obj->quantidadeDePaginasPorBucket<<"\n";
     //cout<<obj->level<<"\n";
     //cout<<obj->next<<"\n";
     //cout<<obj->quantidadeDeOverflow<<"\n";
     //cout<<obj->listaDeBuckets.size()<<"\n";
-
-    for(int i= 0;i<81;i++){
+    /*
+    for(int i= 0;i<200;i++){
         int qtd = obj->quantidadeDeOverflow;
         obj->adicionarPar(i,i);
     }
 
-    /*
     cout<<obj->localizarChave(1)<<endl;
     cout<<obj->localizarChave(5)<<endl;
     cout<<obj->excluirPar(1)<<endl;
     cout<<obj->localizarChave(1)<<endl;
+
+    obj->excluirPar(0);
+    obj->adicionarPar(80)
+    obj->imprimeInformacoes();
+
     */
 
-    obj->imprimeInformacoes();
-    //cout<<"askajdks \n"<<obj->localizarChave(80);
+
 
 
 

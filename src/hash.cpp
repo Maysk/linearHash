@@ -56,6 +56,8 @@ void Hash::loadHashInfo(){
 
     FILE *arquivo = fopen(NOME_PADRAO,"r+");
     Pagina *vazia = new Pagina();
+    int numeroDeBuckets;
+
     if(arquivo == NULL){
 
         arquivo = fopen(NOME_PADRAO,"w");
@@ -89,13 +91,14 @@ void Hash::loadHashInfo(){
         fscanf(arquivo, "%d", &(this->quantidadeDeOverflow));
         fscanf(arquivo, "%d", &(this->level));
         fscanf(arquivo, "%d", &(this->next));
+        fscanf(arquivo, "%d", &(numeroDeBuckets));
         this->entradasDeDados = new Armazenamento(NOME_ARQUIVO_ENTRADAS_DE_DADOS,NOME_ARQUIVO_OVERFLOW);
 
         char a;
         int pagId;
 
 
-        for (int i = 0; i < (pow(2,this->level)*this->quantidadeDeBucketsInicial + this->next) ; i ++  ){
+        for (int i = 0; i < numeroDeBuckets ; i ++  ){
             fseek(arquivo,3,SEEK_CUR); //pular o "B: "
             pagId = -1;
             a = getc(arquivo);
@@ -119,11 +122,43 @@ void Hash::loadHashInfo(){
 
 
     }
+    fclose(arquivo);
 
 
 }
 
 void Hash::saveHashInfo(){
+    FILE *arquivo;
+    int numeroDaPaginaDeOverflow;
+    Bucket bucket;
+    std::list<int>::iterator it;
+    std::list<int> listaDePaginasDeOverflow;
+
+
+    arquivo = fopen(NOME_PADRAO,"w");
+    fprintf(arquivo, "%d\n", quantidadeDeBucketsInicial);    //qtd buckets
+    fprintf(arquivo, "%d\n", quantidadeDePaginasPorBucket);    //qtd pagina por bucket
+    fprintf(arquivo, "%d\n", quantidadeDeOverflow);     //qtd de overflow
+    fprintf(arquivo, "%d\n", level);     //menorlevel
+    fprintf(arquivo, "%d\n", next);     //posicaoDoNext
+    fprintf(arquivo, "%d\n", listaDeBuckets.size()); //NumeroDeBuckets para facilitar a leitura
+
+
+
+
+    for(int i = 0; i<listaDeBuckets.size();i++){
+        fprintf(arquivo, "B:");
+        bucket = listaDeBuckets.at(i);
+        listaDePaginasDeOverflow = bucket.getPaginasDeOverflow();
+        it = listaDePaginasDeOverflow.begin();
+        while(it!=listaDePaginasDeOverflow.end()){
+            fprintf(arquivo," %d",(*it));
+            it++;
+        }
+        fprintf(arquivo, " f\n");
+    }
+
+    fclose(arquivo);
 
 
 
@@ -272,6 +307,7 @@ int Hash::hashChave(int k){
     return numeroDoBucket;
 }
 
+
 int Hash::localizarChave(int chave){
     int numeroDoBucket = hashChave(chave);
     Bucket b = listaDeBuckets.at(numeroDoBucket);
@@ -307,8 +343,6 @@ int Hash::localizarChave(int chave){
     return ridDaChave;
 
 }
-
-
 
 
 bool Hash::adicionarPar(int chave, int rid){
