@@ -2,6 +2,9 @@
 
 
 class Hash{
+
+
+public:
     Armazenamento *entradasDeDados;
     std::vector<Bucket> listaDeBuckets;
     int quantidadeDeBucketsInicial;     //Quantidade inicial de buckets no level
@@ -10,7 +13,7 @@ class Hash{
     int next;
     int quantidadeDeOverflow;
 
-public:
+
     Hash();
     //Hash(int quantidadeDeBucketsInicial, int quantidadeDePaginasPorBucket);
     ~Hash();
@@ -26,5 +29,6 @@ public:
     bool adicionarPar(int chave, int rid);
     bool excluirPar(int k);
 
+    void imprimeInformacoes();
 
 };

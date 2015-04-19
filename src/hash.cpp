@@ -4,22 +4,44 @@
 #define NOME_ARQUIVO_OVERFLOW "overflow.luke"
 
 Hash::Hash(){}
-/*
-Hash::Hash(int quantidadeDeBucketsInicial, int quantidadeDePaginasPorBucket){
 
-    this->quantidadeDeBucketsInicial = quantidadeDeBucketsInicial;
-    this->quantidadeDePaginasPorBucket = quantidadeDePaginasPorBucket;
-    this->level = 0;
-    this->next = 0;
-    this->quantidadeDeOverflow = 0;
-    this->entradasDeDados = new Armazenamento(NOME_ARQUIVO_ENTRADAS_DE_DADOS,NOME_ARQUIVO_OVERFLOW);
-    for(int i = 0; i<4; i++){
-            this->listaDeBuckets.push_back(*(new Bucket));
-            this->entradasDeDados->adicionarPagina(*vazia);
-            this->entradasDeDados->adicionarPagina(*vazia);
-    }
-}*/
 Hash::~Hash(){}
+
+void Hash::imprimeInformacoes(){
+    Bucket b;
+    Pagina paginaCarregada;
+    Par par;
+    std::list<int> listaDeOverflow;
+    std::list<int>::iterator iterador;
+
+    for(int i = 0; i < this->listaDeBuckets.size(); i++){
+        cout<<"Bucket "<<i<<":\n ";
+        b = listaDeBuckets.at(i);
+        for(int j = 0; j < this->quantidadeDePaginasPorBucket;j++){
+            paginaCarregada = entradasDeDados->carregarPagina(i*quantidadeDePaginasPorBucket + j);
+            for(int k=0;k<10;k++){
+                if(paginaCarregada.arrayDeControle[k]!=0){
+                    cout<<(paginaCarregada.arrayDosPares[k]).chave<<" | ";
+                }
+            }
+            cout<<"\n";
+        }
+        cout<<"Overflow: \n";
+        listaDeOverflow = b.getPaginasDeOverflow();
+        iterador = listaDeOverflow.begin();
+        while(iterador!=listaDeOverflow.end()){
+            paginaCarregada = entradasDeDados->carregarPaginaOverflow(*iterador);
+            for(int k=0;k<10;k++){
+                if(paginaCarregada.arrayDeControle[k]!=0){
+                    cout<<(paginaCarregada.arrayDosPares[k]).chave<<" | ";
+                }
+            }
+            iterador++;
+            cout<<"\n";
+        }
+    }
+}
+
 
 void Hash::adicionarNovoBucket(){
     Bucket *b = new Bucket();
@@ -67,6 +89,7 @@ void Hash::loadHashInfo(){
         fscanf(arquivo, "%d", &(this->quantidadeDeOverflow));
         fscanf(arquivo, "%d", &(this->level));
         fscanf(arquivo, "%d", &(this->next));
+        this->entradasDeDados = new Armazenamento(NOME_ARQUIVO_ENTRADAS_DE_DADOS,NOME_ARQUIVO_OVERFLOW);
 
         char a;
         int pagId;
@@ -123,7 +146,6 @@ void Hash::redistribuir(){
     int numeroDePaginasJaAdicionadas;
 
 
-
     this->quantidadeDeOverflow =- listaDeBuckets.at(next).getPaginasDeOverflow().size();
     this->adicionarNovoBucket();
 
@@ -131,67 +153,78 @@ void Hash::redistribuir(){
     paginaParaOBucketA = new Pagina();
     paginaParaOBucketB = new Pagina();
 
+    //Percorrer as paginas "normais" dos buckets e distribui elas entre paginaParaOBucketA e paginaParaOBucketB
     for(int j=0; j<quantidadeDePaginasPorBucket; j++){
          paginaSendoPercorrida = entradasDeDados->carregarPagina(next*quantidadeDePaginasPorBucket + j);
          for(int i=0; i<10;i++){
             par = (paginaSendoPercorrida.arrayDosPares)[i];
+            controle = (paginaSendoPercorrida.arrayDeControle)[i];
             divisor = pow(2,(level+1)) * quantidadeDeBucketsInicial;
-            if( par.chave % divisor == next){
-                paginaParaOBucketA->adicionarParNaPagina(par.chave, par.rid);
+            if(controle){
+                if(par.chave % divisor == next){
+                    paginaParaOBucketA->adicionarParNaPagina(par.chave, par.rid);
+                }
+                else{
+                    paginaParaOBucketB->adicionarParNaPagina(par.chave, par.rid);
+                }
             }
-            else{
-                paginaParaOBucketB->adicionarParNaPagina(par.chave, par.rid);
-            }
+
 
             if(!(paginaParaOBucketA->temPosicaoVazia())){
                 bucketA.push_back(*paginaParaOBucketA);
-                //delete paginaParaOBucketA;
                 paginaParaOBucketA = new Pagina();
             }
 
             if(!(paginaParaOBucketB->temPosicaoVazia())){
                 bucketB.push_back(*paginaParaOBucketB);
-                //delete paginaParaOBucketB;
                 paginaParaOBucketB = new Pagina();
             }
 
          }
 
     }
+
+
     std::list<int> listaDasPaginasDeOverflow = listaDeBuckets.at(next).getPaginasDeOverflow();
     listaDeBuckets.at(next).resetarPaginaDeOverflow();
+    //cout<<"Ta vazio: "<<listaDasPaginasDeOverflow.empty();
 
     while(!(listaDasPaginasDeOverflow.empty())){
         paginaDeOverflow = listaDasPaginasDeOverflow.back();
         listaDasPaginasDeOverflow.pop_back();
         paginaSendoPercorrida = entradasDeDados->carregarPaginaOverflow(paginaDeOverflow);
         entradasDeDados->exluirPagina(paginaDeOverflow);
-        for(int i=0; i<10;i++){
+
+        for(int i=0; i<10; i++){
             controle = (paginaSendoPercorrida.arrayDeControle)[i];
             par = (paginaSendoPercorrida.arrayDosPares)[i];
             divisor = pow(2,(level+1)) * quantidadeDeBucketsInicial;
-            if(controle && par.chave % divisor == next){
-                paginaParaOBucketA->adicionarParNaPagina(par.chave, par.rid);
-            }
-            else{
-                paginaParaOBucketB->adicionarParNaPagina(par.chave, par.rid);
+
+            //cout<<"Controle: "<< controle<<endl;
+            if(controle){
+                if(par.chave % divisor == next){
+                    paginaParaOBucketA->adicionarParNaPagina(par.chave, par.rid);
+                }
+                else{
+                    paginaParaOBucketB->adicionarParNaPagina(par.chave, par.rid);
+                }
             }
 
             if(!(paginaParaOBucketA->temPosicaoVazia())){
                 bucketA.push_back(*paginaParaOBucketA);
-                delete paginaParaOBucketA;
                 paginaParaOBucketA = new Pagina();
             }
 
             if(!(paginaParaOBucketB->temPosicaoVazia())){
-                bucketB.push_back(*paginaParaOBucketA);
-                delete paginaParaOBucketB;
+                bucketB.push_back(*paginaParaOBucketB);
                 paginaParaOBucketB = new Pagina();
             }
         }
     }
+    if(!paginaParaOBucketA->isPosicaoVazia(0)){bucketA.push_back(*paginaParaOBucketA);}
+    if(!paginaParaOBucketB->isPosicaoVazia(0)){bucketB.push_back(*paginaParaOBucketB);}
 
-
+    //bucketA.back().show();
 
     if(bucketA.size()<1){bucketA.push_back(*vazia);}
     if(bucketA.size()<2){bucketA.push_back(*vazia);}
@@ -201,13 +234,14 @@ void Hash::redistribuir(){
     numeroDePaginasJaAdicionadas = 0;
     iterador = bucketA.begin();
     while(iterador != bucketA.end()){
+            //(*iterador).show();
+
             if(numeroDePaginasJaAdicionadas<quantidadeDePaginasPorBucket){
                 entradasDeDados->salvarPagina(*iterador, quantidadeDePaginasPorBucket*next + numeroDePaginasJaAdicionadas);
                 numeroDePaginasJaAdicionadas++;
             }
             else{
                 listaDeBuckets.at(next).adicionarPaginaDeOverflowAoBucket(entradasDeDados->adicionarPaginaOverflow(*iterador));
-
                 quantidadeDeOverflow++;
             }
             iterador++;
@@ -292,9 +326,10 @@ bool Hash::adicionarPar(int chave, int rid){
 
     //Checa se o par existe nas paginas "normais"
     k = numeroDoBucket*quantidadeDePaginasPorBucket;
+
     j = 0;
     while(j < (this->quantidadeDePaginasPorBucket)){
-        paginaSendoPercorrida = entradasDeDados->carregarPagina(k);
+        paginaSendoPercorrida = this->entradasDeDados->carregarPagina(k);
         if(paginaSendoPercorrida.checarSeExistePar(chave, rid)){
             return false;
         }
@@ -337,12 +372,15 @@ bool Hash::adicionarPar(int chave, int rid){
     }
 
     if(!paginaFoiAdicionada){
-        Pagina *novaPagina = new Pagina();
-        novaPagina->adicionarParNaPagina(chave,rid);
-        b.adicionarPaginaDeOverflowAoBucket(entradasDeDados->adicionarPagina(*novaPagina));
+
+        Pagina novaPagina;
+        novaPagina.adicionarParNaPagina(chave,rid);
+        //novaPagina.show();
+        int a = entradasDeDados->adicionarPaginaOverflow(novaPagina);
+        listaDeBuckets.at(numeroDoBucket).adicionarPaginaDeOverflowAoBucket(a);
         paginaFoiAdicionada = true;
         (this->quantidadeDeOverflow)++;
-        entradasDeDados->adicionarPaginaOverflow(*novaPagina);
+
     }
 
     if(quantidadeDeOverflow > 0){
