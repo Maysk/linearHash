@@ -88,12 +88,12 @@ void Hash::loadHashInfo(){
 
     }
     else{
-        fscanf(arquivo, "%d", &(this->quantidadeDeBucketsInicial));
-        fscanf(arquivo, "%d", &(this->quantidadeDePaginasPorBucket));
-        fscanf(arquivo, "%d", &(this->quantidadeDeOverflow));
-        fscanf(arquivo, "%d", &(this->level));
-        fscanf(arquivo, "%d", &(this->next));
-        fscanf(arquivo, "%d", &(numeroDeBuckets));
+        fscanf(arquivo, "%d\n", &(this->quantidadeDeBucketsInicial));
+        fscanf(arquivo, "%d\n", &(this->quantidadeDePaginasPorBucket));
+        fscanf(arquivo, "%d\n", &(this->quantidadeDeOverflow));
+        fscanf(arquivo, "%d\n", &(this->level));
+        fscanf(arquivo, "%d\n", &(this->next));
+        fscanf(arquivo, "%d\n", &(numeroDeBuckets));
         this->entradasDeDados = new Armazenamento(NOME_ARQUIVO_ENTRADAS_DE_DADOS,NOME_ARQUIVO_OVERFLOW);
 
         char a;
@@ -101,7 +101,7 @@ void Hash::loadHashInfo(){
 
 
         for (int i = 0; i < numeroDeBuckets ; i ++  ){
-            fseek(arquivo,5,SEEK_CUR); //pular o "B: "
+            fseek(arquivo,3,SEEK_CUR); //pular o "B: "
             pagId = -1;
             a = getc(arquivo);
 
@@ -143,7 +143,7 @@ void Hash::saveHashInfo(){
     fprintf(arquivo, "%d\n", quantidadeDeOverflow);     //qtd de overflow
     fprintf(arquivo, "%d\n", level);     //menorlevel
     fprintf(arquivo, "%d\n", next);     //posicaoDoNext
-    fprintf(arquivo, "%d\n", listaDeBuckets.size()); //NumeroDeBuckets para facilitar a leitura
+    fprintf(arquivo, "%d\n", (int)listaDeBuckets.size()); //NumeroDeBuckets para facilitar a leitura
 
 
 
